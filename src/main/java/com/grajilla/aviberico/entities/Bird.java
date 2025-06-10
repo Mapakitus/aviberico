@@ -1,7 +1,18 @@
 package com.grajilla.aviberico.entities;
 
+import com.grajilla.aviberico.entities.enums.ConservationStatus;
 import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@Getter
+@Setter
+@ToString(exclude = {"habitats", "image"}) //excluimos habitats e image para evitar bucles infinitos en toString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "birds")
 public class Bird {
@@ -22,13 +33,22 @@ public class Bird {
     @Column(length = 1000)
     private String description;
 
-    private ConservationStatus conservationStatus (enum);
+    @Enumerated(EnumType.STRING)//guarda el enum como string en BBDD
+    private ConservationStatus conservationStatus;
 
+    //Cada ave puede tener una imagen asociada, por eso usamos OneToOne
+    @OneToOne
+    @JoinColumn(name = "image_id") //Esta entidad tendrá una columna 'image_id' como clave foránea
+    private Image image;
 
-Image image; (@OneToOne)
+    @ManyToMany
+    @JoinTable(
+        name = "bird_habitat", //tabla intermedia
+        joinColumns = @JoinColumn(name = "bird_id"), //columna que referencia a la entidad Bird
+        inverseJoinColumns = @JoinColumn(name = "habitat_id") //columna que referencia a la entidad Habitat
+    )
 
-set <habitat> habitats; (@ManyToMany)
-
-
+    @Builder.Default //Asigna este valor por defecto al crear una nueva instancia
+    private Set<Habitat> habitats = new HashSet<>(); //set para evitar duplicados
 
 }
