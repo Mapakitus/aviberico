@@ -21,7 +21,7 @@ public class Pajarero {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //email unico y obligatorio
+    //email único y obligatorio
     @Column(unique = true, nullable = false)
     private String email;
 
@@ -47,7 +47,7 @@ public class Pajarero {
 
    //Un pajarero puede tener muchos avistamientos
     //mappedBy indica que la relación se mapea por el atributo 'pajarero' en BirdSighting
-    // CascadeType.ALL indica que si se borra un pajarero, se borra también los avistamentos asociados
+    // CascadeType.ALL indica que si se borra un pajarero, se borra también los avistamientos asociados
     @OneToMany(mappedBy = "pajarero", cascade = CascadeType.ALL)
     @Builder.Default
     private List<BirdSighting> birdSightings = new ArrayList<>();
