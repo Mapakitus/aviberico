@@ -18,7 +18,10 @@ public class BirdSighting {
     @JoinColumn(name = "bird_id", nullable = false) //Columna que referencia a la entidad Bird
     private Bird bird;
 
-    // private Pajarero pajarero; //TODO: Implementar entidad Pajarero
+    //Muchos avistamientos pueden corresponder a un mismo pajarero.
+    @ManyToOne
+    @JoinColumn(name = "pajarero_id", nullable = false) //Columna que referencia a la entidad Pajarero
+    private Pajarero pajarero;
 
     private LocalDateTime dateTime;
 
