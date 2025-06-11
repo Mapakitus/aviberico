@@ -21,5 +21,7 @@ public class Image {
     @Column(nullable = false)
     private String imgUrl;
 
+    private String altText;
+
     private String photographer;
 }
