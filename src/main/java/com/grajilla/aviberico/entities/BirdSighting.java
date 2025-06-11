@@ -1,10 +1,16 @@
 package com.grajilla.aviberico.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-
+@Getter
+@Setter
+@ToString(exclude = {"bird", "pajarero"})
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "bird_sightings")
 public class BirdSighting {
