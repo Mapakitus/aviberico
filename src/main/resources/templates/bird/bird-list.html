@@ -16,6 +16,33 @@
          <i class="fa-solid fa-plus me-2"></i>Crear nueva ave
      </a>
 
+   <!--  BUSCAR POR NOMBRE:-->
+     <div class="card mb-4">
+         <div class="card-body">
+             <h3 class="card-title">
+                 <i class="fa-solid fa-magnifying-glass me-2"></i>Buscar por nombre:
+             </h3>
+             <form th:action="@{/birds/buscar}" method="get" class="d-flex gap-2 mb-3">
+                 <input type="text"
+                        name="nombre"
+                        class="form-control"
+                        placeholder="Escribe el nombre común del ave"
+                        minlength="3"
+                        th:value="${nombreBuscado}">
+                 <button type="submit" class="btn btn-primary">
+                     <i class="fa-solid fa-search me-1"></i>Buscar
+                 </button>
+                 <a th:href="@{/birds}" class="btn btn-secondary">
+                     <i class="fa-solid fa-eraser me-1"></i>Limpiar
+                 </a>
+             </form>
+             <div th:if="${nombreBuscado}" class="alert alert-info">
+                 <i class="fa-solid fa-circle-info"></i>
+                 <span>Resultados de búsqueda para: "<strong th:text="${nombreBuscado}"></strong>"</span>
+             </div>
+         </div>
+
+
      <!--Filtar por familia:-->
      <div class="card mb-4">
          <div class="card-body">
