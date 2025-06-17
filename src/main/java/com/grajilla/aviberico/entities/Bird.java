@@ -1,6 +1,6 @@
 package com.grajilla.aviberico.entities;
 
-import com.grajilla.aviberico.entities.enums.ConservationStatus;
+import com.grajilla.aviberico.enums.ConservationStatus;
 import jakarta.persistence.*;
 import lombok.*;
 

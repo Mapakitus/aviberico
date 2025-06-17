@@ -1,6 +1,6 @@
 package com.grajilla.aviberico.entities;
 
-import com.grajilla.aviberico.entities.enums.UserRole;
+import com.grajilla.aviberico.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
