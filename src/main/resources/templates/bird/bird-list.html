@@ -41,7 +41,7 @@
                  <span>Resultados de búsqueda para: "<strong th:text="${nombreBuscado}"></strong>"</span>
              </div>
          </div>
-
+     </div>
 
      <!--Filtar por familia:-->
      <div class="card mb-4">
@@ -135,7 +135,11 @@
                              <i class="fa-solid fa-file-pen me-1"></i>Editar
                          </a>
                          <button type="button"
-                                 class="btn btn-danger btn-sm"
+                                 class="btn btn-danger btn-sm btn-delete"
+                                 data-bs-toggle="modal"
+                                 data-bs-target="#confirmDeleteModal"
+                                 th:data-bird-id="${bird.id}"
+                                 th:data-bird-name="${bird.commonName}"
                                  title="Eliminar ave">
                              <i class="fa-solid fa-trash me-1"></i>Borrar
                          </button>
@@ -155,6 +159,62 @@
      </div>
  </div>
 
+    <!-- Modal de confirmación de eliminación -->
+ <!-- MODAL DE CONFIRMACIÓN -->
+ <div class="modal fade" id="confirmDeleteModal">
+     <div class="modal-dialog">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h5 class="modal-title">
+                     <i class="fa-solid fa-triangle-exclamation me-2 text-danger"></i>
+                     Confirmar eliminación
+                 </h5>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+             </div>
+             <div class="modal-body">
+                 <p>¿Estás seguro de eliminar el ave <strong id="birdToDelete"></strong>?</p>
+                 <div class="alert alert-warning mt-3">
+                     <i class="fa-solid fa-triangle-exclamation me-2"></i>
+                     <strong>¡Atención!</strong> Esta acción no se puede deshacer.
+                 </div>
+             </div>
+             <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                     <i class="fa-solid fa-xmark me-1"></i>Cancelar
+                 </button>
+                 <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                     <i class="fa-solid fa-trash-can me-1" ></i>Eliminar
+                 </button>
+             </div>
+         </div>
+     </div>
+ </div>
+
+ <form id="deleteForm" method="post" style="display: none;"></form>
+
  <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let birdIdToDelete = null;
+
+    document.querySelectorAll('.btn-delete').forEach(function(button) {
+        button.addEventListener('click', function() {
+            birdIdToDelete = this.getAttribute('data-bird-id');
+            const birdName = this.getAttribute('data-bird-name');
+            document.getElementById('birdToDelete').textContent = birdName;
+        });
+    });
+
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+        if (birdIdToDelete) {
+            const form = document.getElementById('deleteForm');
+           form.action = '/birds/' + birdIdToDelete + '/delete';
+           form.submit();
+           }
+        });
+    });
+
+</script>
 </body>
 </html>
