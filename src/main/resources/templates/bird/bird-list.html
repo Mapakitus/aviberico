@@ -8,7 +8,12 @@
     <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}">
 </head>
 <body>
- <div class="container mt-4 mb-5">
+
+<div th:replace="~{fragments/navbar :: navbar1}"></div>
+
+
+
+<div class="container mt-4 mb-5">
      <h1 class="mb-4">
          <i class="fa-solid fa-crow fa-bounce me-2"></i>Lista de aves
      </h1>
@@ -25,7 +30,7 @@
              <form th:action="@{/birds/buscar}" method="get" class="d-flex gap-2 mb-3">
                  <input type="text"
                         name="nombre"
-                        class="form-control"
+                        class="form-control mb-2"
                         placeholder="Escribe el nombre común del ave"
                         minlength="3"
                         th:value="${nombreBuscado}">
@@ -36,7 +41,7 @@
                      <i class="fa-solid fa-eraser me-1"></i>Limpiar
                  </a>
              </form>
-             <div th:if="${nombreBuscado}" class="alert alert-info">
+             <div th:if="${nombreBuscado}" class="alert alert-info mt-2">
                  <i class="fa-solid fa-circle-info"></i>
                  <span>Resultados de búsqueda para: "<strong th:text="${nombreBuscado}"></strong>"</span>
              </div>
